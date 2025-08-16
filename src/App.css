@@ -36,3 +36,34 @@
     transform: rotate(360deg);
   }
 }
+
+/* Performance optimizations for smooth scrolling */
+* {
+  box-sizing: border-box;
+}
+
+/* Optimize animations and transitions */
+.card,
+.gallery-container,
+.thumbnail-container {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Prevent layout shifts */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Optimize scroll performance */
+.section-padding {
+  contain: layout style paint;
+}
+
+/* Reduce repaints during scroll */
+.container-custom {
+  contain: layout style paint;
+}

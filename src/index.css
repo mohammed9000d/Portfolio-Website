@@ -1,13 +1,397 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .smooth-scroll {
+    will-change: scroll-position;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  /* Hide scrollbar for gallery thumbnails */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Optimize image rendering */
+  img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+
+  /* Profile image optimization */
+  .profile-image {
+    object-fit: cover;
+    object-position: center -50%;
+    width: 100%;
+    height: 100%;
+    min-width: 100%;
+    min-height: 100%;
+    transform: scale(1.8);
+  }
+
+  .profile-image-container {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .profile-image-container img {
+    transition: transform 0.3s ease;
+    will-change: transform;
+  }
+
+  /* Enhanced animations for 10/10 portfolio */
+  .parallax-scroll {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  .stagger-animation > * {
+    animation: fadeInUp 0.6s ease forwards;
+    opacity: 0;
+  }
+
+  .stagger-animation > *:nth-child(1) { animation-delay: 0.1s; }
+  .stagger-animation > *:nth-child(2) { animation-delay: 0.2s; }
+  .stagger-animation > *:nth-child(3) { animation-delay: 0.3s; }
+  .stagger-animation > *:nth-child(4) { animation-delay: 0.4s; }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Enhanced hover effects */
+  .enhanced-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .enhanced-hover:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Smooth scroll indicators */
+  .scroll-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #6366f1, #8b5cf6);
+    transform-origin: left;
+    z-index: 9999;
+  }
+
+  /* Advanced performance optimizations for 10/10 portfolio */
+  .performance-optimized {
+    contain: layout style paint;
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+
+  /* Enhanced card interactions */
+  .card-3d {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+
+  .card-3d:hover {
+    transform: rotateY(5deg) rotateX(5deg);
+  }
+
+  /* Smooth parallax effects */
+  .parallax-element {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  /* Advanced loading states */
+  .skeleton-loading {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+  }
+
+  @keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  /* Enhanced focus states for accessibility */
+  .enhanced-focus:focus {
+    outline: 2px solid #6366f1;
+    outline-offset: 2px;
+    border-radius: 0.5rem;
+  }
+
+  /* Performance monitoring indicators */
+  .performance-metric {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    z-index: 1000;
+  }
+
+
+
+  /* Responsive image adjustments */
+  @media (max-width: 768px) {
+    .profile-image {
+      object-position: center -40%;
+      transform: scale(1.6);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .profile-image {
+      object-position: center -30%;
+      transform: scale(1.5);
+    }
+  }
+
+  /* Improve modal performance */
+  .modal-backdrop {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* Gallery performance optimizations */
+  .gallery-container {
+    will-change: transform;
+    contain: layout style paint;
+  }
+
+  .gallery-image {
+    will-change: transform;
+    contain: layout style paint;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+
+  /* Enhanced thumbnail scrolling with better performance */
+  .thumbnail-container {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    position: relative;
+    /* Ensure scrolling works */
+    display: flex;
+    flex-wrap: nowrap;
+    /* Force hardware acceleration */
+    transform: translateZ(0);
+    will-change: scroll-position;
+    contain: layout style paint;
+    /* Ensure content is visible and scrollable */
+    min-height: 80px;
+    max-width: 100%;
+    /* Enhanced scroll performance */
+    scroll-snap-type: x mandatory;
+    scroll-snap-align: start;
+    /* Smooth momentum scrolling */
+    -webkit-overflow-scrolling: touch;
+    /* Remove debug border */
+    /* border: 1px solid rgba(255, 255, 255, 0.1); */
+  }
+  
+  .thumbnail-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Enhanced scroll indicators for thumbnail strip */
+  .thumbnail-container::before,
+  .thumbnail-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 20px;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .thumbnail-container::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.4), transparent);
+  }
+  
+  .thumbnail-container::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(0,0,0,0.4), transparent);
+  }
+  
+  /* Show scroll indicators when scrolling */
+  .thumbnail-container:hover::before,
+  .thumbnail-container:hover::after {
+    opacity: 1;
+  }
+  
+  /* Enhanced thumbnail styling */
+  .thumbnail-container button {
+    scroll-snap-align: center;
+    transition: all 0.2s ease;
+  }
+  
+  .thumbnail-container button:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Smooth scroll animations */
+  .smooth-scroll-container {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  
+  /* Enhanced scroll progress indicator */
+  .scroll-progress {
+    background: linear-gradient(90deg, var(--primary-500), var(--primary-600));
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+  }
+  
+  /* Improved scroll performance */
+  .optimized-scroll {
+    will-change: scroll-position;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+  
+  /* Enhanced touch targets for mobile */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Smooth transitions for all interactive elements */
+  .interactive-element {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .interactive-element:hover {
+    transform: translateY(-1px);
+  }
+
+  /* Optimize animations */
+  .optimized-animation {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+  }
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@layer components {
+  .btn-primary {
+    @apply bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-6 rounded-lg transition-colors duration-200;
+  }
+  
+  .btn-secondary {
+    @apply bg-transparent border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white font-medium py-2 px-6 rounded-lg transition-colors duration-200;
+  }
+  
+  .section-padding {
+    @apply py-16 px-4 sm:px-6 lg:px-8;
+  }
+  
+  .container-custom {
+    @apply max-w-7xl mx-auto;
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent;
+  }
+  
+  .card {
+    @apply bg-white dark:bg-dark-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300;
+    contain: layout style paint;
+    will-change: transform;
+  }
 }
+
+/* Scroll Performance Optimizations */
+.gallery-container {
+  will-change: transform;
+  contain: layout style paint;
+}
+
+.gallery-image {
+  will-change: transform;
+  contain: layout style paint;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.thumbnail-container {
+  will-change: scroll-position;
+  contain: layout style paint;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Prevent layout shifts during scroll */
+.card {
+  contain: layout style paint;
+  will-change: transform;
+}
+
+/* Smooth scrolling optimizations */
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+
