@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favicon Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .preview {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .favicon-preview {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            border: 3px solid #ddd;
+            margin: 20px auto;
+            display: block;
+            object-fit: cover;
+        }
+        .download-btn {
+            background: #007bff;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+        .download-btn:hover {
+            background: #0056b3;
+        }
+        .instructions {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .size-options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .size-option {
+            text-align: center;
+        }
+        .size-option img {
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Professional Circular Favicon Generator</h1>
+        
+        <div class="preview">
+            <h3>Preview of Your Circular Favicon</h3>
+            <img id="faviconPreview" class="favicon-preview" src="images/best.jpg" alt="Favicon Preview">
+            
+            <div class="size-options">
+                <div class="size-option">
+                    <h4>16x16</h4>
+                    <img id="size16" src="images/best.jpg" alt="16x16" style="width: 16px; height: 16px;">
+                </div>
+                <div class="size-option">
+                    <h4>32x32</h4>
+                    <img id="size32" src="images/best.jpg" alt="32x32" style="width: 32px; height: 32px;">
+                </div>
+                <div class="size-option">
+                    <h4>64x64</h4>
+                    <img id="size64" src="images/best.jpg" alt="64x64" style="width: 64px; height: 64px;">
+                </div>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3>How to Use:</h3>
+            <ol>
+                <li>Right-click on any of the circular images above</li>
+                <li>Select "Save image as..."</li>
+                <li>Save it as "favicon.ico" in your public folder</li>
+                <li>Or save as PNG files for different sizes</li>
+            </ol>
+        </div>
+
+        <div style="text-align: center;">
+            <button class="download-btn" onclick="downloadFavicon(16)">Download 16x16</button>
+            <button class="download-btn" onclick="downloadFavicon(32)">Download 32x32</button>
+            <button class="download-btn" onclick="downloadFavicon(64)">Download 64x64</button>
+        </div>
+    </div>
+
+    <script>
+        // Apply circular cropping to all preview images
+        function applyCircularCrop() {
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.style.objectFit = 'cover';
+                img.style.borderRadius = '50%';
+            });
+        }
+
+        // Download function
+        function downloadFavicon(size) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+            
+            canvas.width = size;
+            canvas.height = size;
+            
+            img.onload = function() {
+                // Create circular clipping path
+                ctx.beginPath();
+                ctx.arc(size/2, size/2, size/2, 0, 2 * Math.PI);
+                ctx.closePath();
+                ctx.clip();
+                
+                // Draw the image
+                ctx.drawImage(img, 0, 0, size, size);
+                
+                // Convert to blob and download
+                canvas.toBlob(function(blob) {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `favicon-${size}x${size}.png`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                });
+            };
+            
+            img.src = 'images/best.jpg';
+        }
+
+        // Apply circular cropping when page loads
+        window.onload = applyCircularCrop;
+    </script>
+</body>
+</html>
